@@ -22,13 +22,14 @@ html, body{
 
 #headerPic{
   background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline (1).jpg");
-  height: 800px;
+  height: 600px;
   width: 100%;
   position: relative;
   background-repeat: no-repeat;
 }
 .headerTxt{
   text-align: center;
+  width: auto;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -40,6 +41,10 @@ html, body{
   padding-bottom: 15px;
   padding-left: 45px;
   padding-right: 45px;
+  float: left;
+  clear: left;
+  min-height: 65%;
+  min-width: 45%;
 }
 
 #nameTitle{

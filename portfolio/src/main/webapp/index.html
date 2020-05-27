@@ -7,10 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="animateTitleText()">
     <div id="headerPic">
         <div class="headerTxt">
-            <h1 id="nameTitle">Earl Potts Jr.</h1>
+          <div id="nameCont" style="position: relative; font-size: 80px" onclick="animateTitleText()">
+            <h1 id="nameTitle">Earl Potts Jr</h1>
+          </div>
             <hr id="nameDivider"/>
             <h2 id = "subtitle">Software Engineer &<br>Computer Science Student</h2>
         </div>
