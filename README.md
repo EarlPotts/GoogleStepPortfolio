@@ -1,3 +1,3 @@
-# Earl potts Portfolio for Google's Student Training in Engineering Program
+# Earl Potts Portfolio for Google's Student Training in Engineering Program
 
-This repo contains Earl Potts' portfolio and STEP projects
+Personal portfolio constructed with HTML/CSS and JavaScript as a part of Google's STEP program.
