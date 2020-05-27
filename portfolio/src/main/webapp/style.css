@@ -7,3 +7,44 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+#profilePic {
+    width: 45%;
+    height: 45%;
+    border-radius: 50%;
+    border-color: black;
+    border-width: 10px;
+}
+
+#headerPic{
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("images/UT Skyline.jpg");
+  height: 500px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.headerTxt{
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  width 100%;
+}
+
+#nameTitle{
+  font-size: 80px;
+  font-family: 'Bebas Neue', cursive;
+  margin-bottom: 0px;
+}
+#subtitle{
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+}
+
+*{
+  font-family: 'Roboto', sans-serif;
+}
