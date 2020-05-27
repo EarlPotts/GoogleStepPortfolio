@@ -1,3 +1,6 @@
+html, body{
+  padding: 0;
+}
 #content {
   margin-left: auto;
   margin-right: auto;
@@ -18,12 +21,11 @@
 }
 
 #headerPic{
-  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline.jpg");
-  height: 500px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline (1).jpg");
+  height: 800px;
   width: 100%;
   position: relative;
-  padding: 0;
-  margin: 0;
+  background-repeat: no-repeat;
 }
 .headerTxt{
   text-align: center;
@@ -32,9 +34,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
-  width 100%;
   background-color: rgb(208, 165, 126, 0.15);
   border-radius: 3%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 45px;
+  padding-right: 45px;
 }
 
 #nameTitle{
@@ -49,6 +54,8 @@
 
 *{
   font-family: 'Roboto', sans-serif;
+  align-items: center;
+  text-align: center;
 }
 
 #nameDivider{
