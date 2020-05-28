@@ -36,7 +36,7 @@ function animateTitleText() {
     }else{
       animBox.style.fontSize = inc + "%";
       inc++;
-      if(inc == 150){
+      if(inc == 175){
         decreasing = true;
       }
     }
