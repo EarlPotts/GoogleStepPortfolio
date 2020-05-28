@@ -43,13 +43,21 @@ function animateTitleText() {
   }
 }
 
-function swapContent (id) {
+function switchSection (id) {
+  //store the appropriate elements in variables
     const container = document.getElementById('content');
     const div = document.getElementById(id);
+    //clone the div we want to replace the old one with
     const clone = div.cloneNode(true);
-
+    //remove all children of the container div and then add the clone
     while (container.firstChild) container.firstChild.remove();
 
     container.appendChild(clone);
     clone.style.display = '';
+    //set the nav element of the new current section
+    const oldNav =  document.getElementById(currSection + 'Nav');
+    const newNav = document.getElementById(id + 'Nav')
+    oldNav.className = "";
+    newNav.className = "current"
+    currSection = id;
 }

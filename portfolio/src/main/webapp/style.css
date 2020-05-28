@@ -87,7 +87,7 @@ li a, a:link, a:visited{
 #navbar li{
   display: inline;
 }
-#navbar li a:hover{
+#navbar li a:hover, .current{
   background-color: rgb(84, 84, 84);
   color: white;
   font-size: 30px;

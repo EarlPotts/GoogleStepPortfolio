@@ -19,11 +19,11 @@
     </div>
     <div>
       <ul id = "navbar">
-        <li><a onclick="swapContent('aboutMe');">About me</a></li>
-        <li><a onclick="swapContent('education');">Education</a></li>
-        <li><a>Work Experience</a></li>
-        <li><a>Projects</a></li>
-        <li><a>Organizations</a></li>
+        <li><a id="aboutMeNav" class = "current" onclick="switchSection('aboutMe');">About me</a></li>
+        <li><a id="educationNav"onclick="switchSection('education');">Education</a></li>
+        <li><a id="experienceNav"onclick="switchSection('experience');">Work Experience</a></li>
+        <li><a id="projectsNav">Projects</a></li>
+        <li><a id="orgsNav">Organizations</a></li>
         <li><a href="https://www.github.com/earlpotts" target="_blank">GitHub</a></li>
         <li><a href="https://www.linkedin.com/in/earlpotts" target="_blank">LinkedIn</a></li>
       </ul>
@@ -55,6 +55,27 @@
         <p id="bio"> My name is Earl Potts and I am a software engineer at Google. I am also a Junior at The University of Texas at Austin
           pursuing Bachelor's degrees in Computer Science and African & African Diaspora Studies</p>
       </div>
+    </div>
+    <div id="experience" style="display: none">
+      <img width="35%" height="35%"src="images/google.jpg"/>
+      <h2>Google STEP Internship Program</h2>
+      <h4>May 2020 - Present</h4>
+      <ul>
+        <li>Learned skills in web development and developed this portfolio website as a project.</li>
+        <li>Worked alongside a cohort of 2 other interns to develop a capstone web application.</li>
+      </ul>
+
+      <hr/>
+
+      <img width="35%" height="35%"src="images/schoology.png"/>
+      <h2>Software Engineering Intern at Schoology</h2>
+      <h4>May 2019 - August 2019</h4>
+      <ul>
+        <li>Decreased the Schoology code base by 5%, by eliminating unused Drupal modules (~13,000 lines of code) with the Operational Efficiency team.</li>
+        <li>Learned and worked through Agile Development with a team of other developers and project managers.</li>
+        <li>Implemented an auto-search React component to improve our internal company dashboard.</li>
+      </ul>
+    </hr/>
     </div>
   </body>
 
