@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+var currSection = 'aboutMe'
 function animateTitleText() {
   //store the element containing my name
   var animBox = document.getElementById('nameTitle');
@@ -41,4 +41,15 @@ function animateTitleText() {
       }
     }
   }
+}
+
+function swapContent (id) {
+    const container = document.getElementById('content');
+    const div = document.getElementById(id);
+    const clone = div.cloneNode(true);
+
+    while (container.firstChild) container.firstChild.remove();
+
+    container.appendChild(clone);
+    clone.style.display = '';
 }

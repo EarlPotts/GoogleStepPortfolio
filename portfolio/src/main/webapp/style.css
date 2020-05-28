@@ -7,6 +7,7 @@ html, body{
   align-items: center;
   text-align: center;
   box-sizing: border-box;
+  font-size: 20px;
 }
 #content {
   margin-left: auto;
@@ -22,6 +23,13 @@ html, body{
     border-color: black;
     border-width: 10px;
 }
+li{
+  font-size: 20px;
+}
+h2{
+  font-size: 30px;
+}
+
 
 
 
@@ -69,16 +77,16 @@ html, body{
 
 
 /* Styling for the navigation bar */
-li a{
+#navbar li a{
   font-family: 'Bebas Neue', cursive;
   font-size: 25px;
   text-decoration: underline;
   padding: 15px;
 }
-li{
+#navbar li{
   display: inline;
 }
-li a:hover{
+#navbar li a:hover{
   background-color: rgb(84, 84, 84);
   color: white;
   font-size: 30px;
@@ -86,4 +94,10 @@ li a:hover{
 ul {
   list-style-type: none;
   overflow: hidden;
+}
+
+
+/* styling for the body */
+#bio{
+  font-size: 20px;
 }

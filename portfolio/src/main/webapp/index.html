@@ -19,17 +19,41 @@
     </div>
     <div>
       <ul id = "navbar">
-        <li><a>About me</a></li>
-        <li><a>Education</a></li>
+        <li><a onclick="swapContent('aboutMe');">About me</a></li>
+        <li><a onclick="swapContent('education');">Education</a></li>
         <li><a>Work Experience</a></li>
         <li><a>Projects</a></li>
         <li><a>Organizations</a></li>
       </ul>
     </div>
     <div id="content">
-      <!-- <img src = "images/ramenPic.jpg" id="profilePic"/> -->
-      <p>This is my portfolio.</p>
-      <p> I am a Junior at The University of Texas at Austin studying Computer Science and African & African Diaspora Studies</p>
+      <div id="default">
+        <img src = "images/ramenPic.jpg" id="profilePic"/>
+        <hr />
+        <div>
+          <p id="bio"> My name is Earl Potts and I am a software engineer at Google. I am also a Junior at The University of Texas at Austin
+            pursuing Bachelor's degrees in Computer Science and African & African Diaspora Studies</p>
+        </div>
+      </div>
+    </div>
+    <div id="education" style="display: none">
+      <img width="45%" height="45%"src="images/longhorn.png"/>
+      <h2>The University of Texas at Austin</h2>
+      <h4>2018-2022</h4>
+      <ul>
+        <li>Bachelor's of Science and Arts in Computer Science</li>
+        <li>Bachelor's of Arts in African & African Diaspora Studies</li>
+        <li>3.3 GPA</li>
+      </ul>
+    </div>
+    <div id="aboutMe" style="display: none">
+      <img src = "images/ramenPic.jpg" id="profilePic"/>
+      <hr />
+      <div>
+        <p id="bio"> My name is Earl Potts and I am a software engineer at Google. I am also a Junior at The University of Texas at Austin
+          pursuing Bachelor's degrees in Computer Science and African & African Diaspora Studies</p>
+      </div>
     </div>
   </body>
+
 </html>
