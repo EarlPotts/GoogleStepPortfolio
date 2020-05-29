@@ -1,9 +1,70 @@
+html, body{
+  padding: 0;
+}
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
+  position: relative;
 }
 
 #greeting-container {
   margin-top: 20px;
+}
+
+#profilePic {
+    width: 45%;
+    height: 45%;
+    border-radius: 50%;
+    border-color: black;
+    border-width: 10px;
+}
+
+#headerPic{
+  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline (1).jpg");
+  height: 600px;
+  width: 100%;
+  position: relative;
+  background-repeat: no-repeat;
+}
+.headerTxt{
+  text-align: center;
+  width: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  background-color: rgb(208, 165, 126, 0.15);
+  border-radius: 3%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 45px;
+  padding-right: 45px;
+  float: left;
+  clear: left;
+  min-height: 65%;
+  min-width: 45%;
+}
+
+#nameTitle{
+  font-size: 80px;
+  font-family: 'Bebas Neue', cursive;
+  margin-bottom: 0px;
+}
+#subtitle{
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+}
+
+*{
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  text-align: center;
+}
+
+#nameDivider{
+  border-width: 1px;
+  border-style: solid;
+  color: black;
 }

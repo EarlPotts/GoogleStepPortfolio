@@ -2,14 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Earl Potts Jr.</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="animateTitleText()">
+    <div id="headerPic">
+        <div class="headerTxt">
+          <div id="nameCont" style="position: relative; font-size: 80px" onclick="animateTitleText()">
+            <h1 id="nameTitle">Earl Potts Jr</h1>
+          </div>
+            <hr id="nameDivider"/>
+            <h2 id = "subtitle">Software Engineer &<br>Computer Science Student</h2>
+        </div>
+    </div>
     <div id="content">
-      <h1>My Portfolio</h1>
+      <!-- <img src = "images/ramenPic.jpg" id="profilePic"/> -->
       <p>This is my portfolio.</p>
+      <p> I am a Junior at The University of Texas at Austin studying Computer Science and African & African Diaspora Studies</p>
       <p>Click here to get a random message:</p>
       <button onclick="addRandomGreeting()">Hello</button>
       <div id="greeting-container"></div>

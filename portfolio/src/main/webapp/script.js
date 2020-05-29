@@ -12,6 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+function animateTitleText() {
+  //store the element containing my name
+  var animBox = document.getElementById('nameTitle');
+
+  // the frames for the actual animation, every 5 frames, it will increase
+  // font size by 1 until it reaches the max, and then will decrease
+  var id = setInterval(frame, 5);
+  var inc = 99;
+  var decreasing = true;
+  function frame() {
+    if (inc == 100 && decreasing) {
+      clearInterval(id);
+    } else if (decreasing){
+      //set the font size to a decreasing percentage to make the font smaller
+        animBox.style.fontSize = inc + "%";
+        inc--;
+        //once it reaches 1% then have it switch to increasing font size
+        if(inc == 1){
+          decreasing = false;
+        }
+    }else{
+      animBox.style.fontSize = inc + "%";
+      inc++;
+      if(inc == 175){
+        decreasing = true;
+      }
+    }
+  }
+}
+
 /**
  * Adds a random greeting to the page.
  */
