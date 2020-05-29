@@ -1,15 +1,18 @@
+/* General styling */
 html, body{
   padding: 0;
+}
+*{
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
 }
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
   position: relative;
-}
-
-#greeting-container {
-  margin-top: 20px;
 }
 
 #profilePic {
@@ -20,6 +23,9 @@ html, body{
     border-width: 10px;
 }
 
+
+
+/* Styling for the header */
 #headerPic{
   background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline (1).jpg");
   height: 600px;
@@ -46,7 +52,6 @@ html, body{
   min-height: 65%;
   min-width: 45%;
 }
-
 #nameTitle{
   font-size: 80px;
   font-family: 'Bebas Neue', cursive;
@@ -56,15 +61,30 @@ html, body{
   font-size: 35px;
   font-family: 'Roboto', sans-serif;
 }
-
-*{
-  font-family: 'Roboto', sans-serif;
-  align-items: center;
-  text-align: center;
-}
-
 #nameDivider{
   border-width: 1px;
   border-style: solid;
   color: black;
+}
+
+
+/* Styling for the navigation bar */
+li a, a:link, a:visited{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 25px;
+  text-decoration: underline;
+  padding: 15px;
+  color: black;
+}
+li{
+  display: inline;
+}
+li a:hover{
+  background-color: rgb(84, 84, 84);
+  color: white;
+  font-size: 30px;
+}
+ul {
+  list-style-type: none;
+  overflow: hidden;
 }
