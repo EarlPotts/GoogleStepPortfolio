@@ -35,11 +35,14 @@ h2{
 
 /* Styling for the header */
 #headerPic{
-  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline (1).jpg");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url("images/UT Skyline.jpg");
   height: 600px;
   width: 100%;
   position: relative;
   background-repeat: no-repeat;
+  align-self: center;
+  align-items: center;
+  background-position: center;
 }
 .headerTxt{
   text-align: center;
@@ -87,15 +90,26 @@ li a, a:link, a:visited{
 #navbar li{
   display: inline;
 }
-#navbar li a:hover, .current{
+#navbar{
+  padding: 10px;
+}
+.chevron{
+  font-size: 25px;
+}
+.chevron:hover{
+  font-size: 30px;
+}
+#navbar li .navItem:hover, .current{
   background-color: rgb(84, 84, 84);
   color: white;
   font-size: 30px;
+  float: center;
 }
 ul {
   list-style-type: none;
   overflow: hidden;
 }
+
 
 
 /* styling for the body */

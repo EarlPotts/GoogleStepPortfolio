@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/2051b9a1c1.js" crossorigin="anonymous"></script>
   </head>
   <body onload="animateTitleText()">
     <div id="headerPic">
@@ -19,13 +20,13 @@
     </div>
     <div>
       <ul id = "navbar">
-        <li><a id="aboutMeNav" class = "current" onclick="switchSection('aboutMe');">About me</a></li>
-        <li><a id="educationNav"onclick="switchSection('education');">Education</a></li>
-        <li><a id="experienceNav"onclick="switchSection('experience');">Work Experience</a></li>
-        <li><a id="projectsNav">Projects</a></li>
-        <li><a id="orgsNav">Organizations</a></li>
-        <li><a href="https://www.github.com/earlpotts" target="_blank">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/earlpotts" target="_blank">LinkedIn</a></li>
+        <li><a class="chevron" onclick="switchSection(-1)"><i class="fas fa-chevron-left fa-2x"></i></a></li>
+        <li><a style="margin-left: 15px"id="aboutMeNav" class = "current" class="navItem" onclick="switchSection(0);">About me</a></li>
+        <li><a id="educationNav"onclick="switchSection(1);" class="navItem" >Education</a></li>
+        <li><a id="experienceNav"onclick="switchSection(2);" class="navItem" >Work Experience</a></li>
+        <li><a href="https://www.github.com/earlpotts"  class="navItem" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/earlpotts"  class="navItem" target="_blank">LinkedIn</a></li>
+        <li><a class="chevron" onclick="switchSection(-2)"><i class="fas fa-chevron-right fa-2x"></i></a></li>
       </ul>
     </div>
     <div id="content">
