@@ -1,5 +1,5 @@
 /* General styling */
-html, body{
+body, html{
   padding: 0;
 }
 *{
@@ -17,8 +17,8 @@ html, body{
 }
 
 #profilePic {
-    width: 45%;
-    height: 45%;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     border-color: black;
     border-width: 10px;
@@ -115,4 +115,17 @@ ul {
 /* styling for the body */
 #bio{
   font-size: 20px;
+}
+.currentSection{
+  display: block;
+}
+.inactiveSection{
+  display: none;
+}
+#sectionInfo{
+  width: 50%;
+  float: center;
+  align-self: center;
+  align-items: center;
+  margin: 0 auto;
 }
