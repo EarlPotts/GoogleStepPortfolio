@@ -44,39 +44,31 @@ function animateTitleText() {
   }
 }
 
+function moveLeft(){
+  var index = currIndex==0 ?  sections.length - 1 : currIndex - 1;
+  switchSection(index);
+}
+
+function moveRight(){
+  var index = currIndex==sections.length - 1 ?  0: currIndex + 1;
+  switchSection(index);
+}
+
 // This method takes in an index for the section meant to switch to, and it
 // translates that into the actual navigation section and switches to it
 // If the id equals -1 or -2, then the section should switch to the nav item to the
 // left and right of the current nav item respectively
-function switchSection (i) {
-  //adjust the index parameter according to relative direction
-  if(i == -1 || i == -2){
-    //if we need to move to the left, subtract 1 from the index, add 1 if going right
-    console.log("Original i value: " + i);
-    i = i == -1 ? currIndex-1:currIndex+1;
-    console.log("New i value: " + i);
-    if(i == sections.length){
-      i = 0;
-    }else if(i == -1){
-      i = sections.length - 1;
-    }
-
-    //adjust the i value if we are wrapping around
-  }
+function switchSection (sectionIndex) {
   //store the appropriate elements in variables
-    const container = document.getElementById('content');
-    const div = document.getElementById(sections[i]);
-    //clone the div we want to replace the old one with
-    const clone = div.cloneNode(true);
-    //remove all children of the container div and then add the clone
-    while (container.firstChild) container.firstChild.remove();
-
-    container.appendChild(clone);
-    clone.style.display = '';
-    //set the nav element of the new current section
-    const oldNav =  document.getElementById(sections[currIndex] + 'Nav');
-    const newNav = document.getElementById(sections[i] + 'Nav')
-    oldNav.className = "";
-    newNav.className = "current"
-    currIndex = i;
+  const newSection = document.getElementById(sections[sectionIndex]);
+  const oldSection = document.getElementById(sections[currIndex]);
+  //change the respective classes of the divs
+  oldSection.className = "inactiveSection"
+  newSection.className = "currentSection"
+  //set the nav element of the new current section
+  const oldNav =  document.getElementById(sections[currIndex] + 'Nav');
+  const newNav = document.getElementById(sections[sectionIndex] + 'Nav')
+  oldNav.className = "";
+  newNav.className = "current"
+  currIndex = sectionIndex;
 }
