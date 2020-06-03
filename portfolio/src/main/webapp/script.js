@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+var sections = ['aboutMe', 'education', 'experience'];
+var currIndex = 0;
 function animateTitleText() {
   //store the element containing my name
   var animBox = document.getElementById('nameTitle');
@@ -43,17 +44,31 @@ function animateTitleText() {
   }
 }
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function moveLeft(){
+  var index = currIndex===0 ?  sections.length - 1 : currIndex - 1;
+  switchSection(index);
+}
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+function moveRight(){
+  var index = currIndex===sections.length - 1 ?  0: currIndex + 1;
+  switchSection(index);
+}
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+// This method takes in an index for the section meant to switch to, and it
+// translates that into the actual navigation section and switches to it
+// If the id equals -1 or -2, then the section should switch to the nav item to the
+// left and right of the current nav item respectively
+function switchSection (sectionIndex) {
+  //store the appropriate elements in variables
+  const newSection = document.getElementById(sections[sectionIndex]);
+  const oldSection = document.getElementById(sections[currIndex]);
+  //change the respective classes of the divs
+  oldSection.className = "inactiveSection"
+  newSection.className = "currentSection"
+  //set the nav element of the new current section
+  const oldNav =  document.getElementById(sections[currIndex] + 'Nav');
+  const newNav = document.getElementById(sections[sectionIndex] + 'Nav')
+  oldNav.className = "";
+  newNav.className = "current"
+  currIndex = sectionIndex;
 }
