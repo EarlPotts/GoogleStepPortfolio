@@ -45,12 +45,12 @@ function animateTitleText() {
 }
 
 function moveLeft(){
-  var index = currIndex==0 ?  sections.length - 1 : currIndex - 1;
+  var index = currIndex===0 ?  sections.length - 1 : currIndex - 1;
   switchSection(index);
 }
 
 function moveRight(){
-  var index = currIndex==sections.length - 1 ?  0: currIndex + 1;
+  var index = currIndex===sections.length - 1 ?  0: currIndex + 1;
   switchSection(index);
 }
 
