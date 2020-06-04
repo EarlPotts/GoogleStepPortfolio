@@ -67,8 +67,25 @@ function switchSection (sectionIndex) {
   newSection.className = "currentSection"
   //set the nav element of the new current section
   const oldNav =  document.getElementById(sections[currIndex] + 'Nav');
-  const newNav = document.getElementById(sections[sectionIndex] + 'Nav')
+  const newNav = document.getElementById(sections[sectionIndex] + 'Nav');
   oldNav.className = "";
   newNav.className = "current"
   currIndex = sectionIndex;
+}
+
+async function fetchServlet(){
+    let comments = [];
+    const commentsList = document.getElementById('commentsList');
+    console.log(comments.toString());
+    await fetch('/data')
+    .then(response => response.json())
+    .then((comment) => {
+        //loop through the comments on the server
+        comment.forEach(comment => {
+            //create aq new list item with the comment txt and add it to the list
+            let newListItem = document.createElement("li");
+            newListItem.appendChild(document.createTextNode(comment.text));
+            commentsList.appendChild(newListItem);
+        });
+    });
 }

@@ -8,7 +8,7 @@
     <script src="script.js"></script>
     <script src="https://kit.fontawesome.com/2051b9a1c1.js" crossorigin="anonymous"></script>
   </head>
-  <body onload="animateTitleText()">
+  <body onload="fetchServlet()">
     <div id="headerPic">
         <div class="headerTxt">
           <div id="nameCont" style="position: relative; font-size: 80px" onclick="animateTitleText()">
@@ -18,6 +18,7 @@
             <h2 id = "subtitle">Software Engineer &<br>Computer Science Student</h2>
         </div>
     </div>
+	<div id="serverTxt">TEXT HERE</div>
     <div>
       <ul id = "navbar">
         <li><a class="chevron" onclick="moveLeft()"><i class="fas fa-chevron-left fa-2x"></i></a></li>
@@ -30,46 +31,55 @@
       </ul>
     </div>
     <div id="sectionInfo">
-      <div id="education" class = "inactiveSection">
-        <img width="400px" height="200px"src="images/longhorn.png"/>
-        <h2>The University of Texas at Austin</h2>
-        <h4>2018-2022</h4>
-        <ul>
-          <li>Bachelor's of Science and Arts in Computer Science</li>
-          <li>Bachelor's of Arts in African & African Diaspora Studies</li>
-          <li>3.3 GPA</li>
-        </ul>
-      </div>
-      <div id="aboutMe" class = "currentSection">
-        <img src = "images/ramenPic.jpg" id="profilePic"/>
-        <hr />
-        <div>
-          <p id="bio"> My name is Earl Potts and I am a software engineer at Google. I am also a Junior at The University of Texas at Austin
-            pursuing Bachelor's degrees in Computer Science and African & African Diaspora Studies</p>
+        <div id="education" class = "inactiveSection">
+            <img width="400px" height="200px"src="images/longhorn.png"/>
+            <h2>The University of Texas at Austin</h2>
+            <h4>2018-2022</h4>
+            <ul>
+            <li>Bachelor's of Science and Arts in Computer Science</li>
+            <li>Bachelor's of Arts in African & African Diaspora Studies</li>
+            <li>3.3 GPA</li>
+            </ul>
         </div>
-      </div>
-      <div id="experience" class = "inactiveSection">
-        <img width="200px" height="200px"src="images/google.jpg"/>
-        <h2>Google STEP Internship Program</h2>
-        <h4>May 2020 - Present</h4>
-        <ul>
-          <li>Learned skills in web development and developed this portfolio website as a project.</li>
-          <li>Worked alongside a cohort of 2 other interns to develop a capstone web application.</li>
-        </ul>
+        <div id="aboutMe" class = "currentSection">
+            <img src = "images/ramenPic.jpg" id="profilePic"/>
+            <hr />
+            <div>
+            <p id="bio"> My name is Earl Potts and I am a software engineer at Google. I am also a Junior at The University of Texas at Austin
+                pursuing Bachelor's degrees in Computer Science and African & African Diaspora Studies</p>
+            </div>
+        </div>
+        <div id="experience" class = "inactiveSection">
+            <img width="200px" height="200px"src="images/google.jpg"/>
+            <h2>Google STEP Internship Program</h2>
+            <h4>May 2020 - Present</h4>
+            <ul>
+            <li>Learned skills in web development and developed this portfolio website as a project.</li>
+            <li>Worked alongside a cohort of 2 other interns to develop a capstone web application.</li>
+            </ul>
 
-        <hr/>
+            <hr/>
 
-        <img width="200px" height="200px"src="images/schoology.png"/>
-        <h2>Software Engineering Intern at Schoology</h2>
-        <h4>May 2019 - August 2019</h4>
-        <ul>
-          <li>Decreased the Schoology code base by 5%, by eliminating unused Drupal modules (~13,000 lines of code) with the Operational Efficiency team.</li>
-          <li>Learned and worked through Agile Development with a team of other developers and project managers.</li>
-          <li>Implemented an auto-search React component to improve our internal company dashboard.</li>
-        </ul>
-      </hr/>
-      </div>
+            <img width="200px" height="200px"src="images/schoology.png"/>
+            <h2>Software Engineering Intern at Schoology</h2>
+            <h4>May 2019 - August 2019</h4>
+            <ul>
+            <li>Decreased the Schoology code base by 5%, by eliminating unused Drupal modules (~13,000 lines of code) with the Operational Efficiency team.</li>
+            <li>Learned and worked through Agile Development with a team of other developers and project managers.</li>
+            <li>Implemented an auto-search React component to improve our internal company dashboard.</li>
+            </ul>
+        </div>
   </div>
+	<!-- Comments section -->
+    <div id="commentsContainer">
+        <ul id="commentsList">
+        </ul>
+        <form>
+            <label for="commentTxt">New Comment</label><br>
+            <input type="text" id="commentTxt">
+            <input type="submit" id="submitBtn">
+        </form>
+    </div>
   </body>
 
 </html>
