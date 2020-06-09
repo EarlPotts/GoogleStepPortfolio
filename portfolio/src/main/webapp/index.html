@@ -71,12 +71,15 @@
         </div>
   </div>
 	<!-- Comments section -->
+    <h2><u>Comments</u></h2>
     <div id="commentsContainer">
-        <ul id="commentsList">
-        </ul>
-        <form>
-            <label for="commentTxt">New Comment</label><br>
-            <input type="text" id="commentTxt">
+        <div id="comments">
+            <ul id="commentsList">
+            </ul>
+        </div>
+        <form action = "/data" method="POST">
+            <label for="commentTxt" >New Comment</label><br>
+            <input type="text" name="commentTxt">
             <input type="submit" id="submitBtn">
         </form>
     </div>

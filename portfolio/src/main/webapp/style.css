@@ -129,3 +129,17 @@ ul {
   align-items: center;
   margin: 0 auto;
 }
+
+/*Comment section styling*/
+#comments{
+    border-color: black;
+    border-width: 3px;
+    border-style: solid;
+    width: 20%;
+    display: inline-block;
+}
+
+#commentsContainer{
+    text-align: center;
+    width: 100%;
+}

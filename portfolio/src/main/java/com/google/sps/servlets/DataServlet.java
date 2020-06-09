@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*; 
 import java.util.*; 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -34,15 +37,38 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+    response.setContentType("application/json;");
+    response.getWriter().println(commentsToJson());
+  }
+
+  private String commentsToJson(){
     String jsonComments = "[";
     for(int i = 0; i < comments.size(); i++){
         jsonComments+= "{\"text\": \"" + comments.get(i) + "\"}";
         if(i!= comments.size() - 1){
             jsonComments+= ",";
         }
+    
     }
     jsonComments+= "]";
-    response.setContentType("application/json;");
-    response.getWriter().println(jsonComments);
+    return jsonComments;
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = request.getParameter("commentTxt");
+    //check for empty text box
+    if(text == null || text.equals(""))
+    	return;
+    //create an etity for the comment
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+    response.sendRedirect("/index.html");
+
   }
 }
