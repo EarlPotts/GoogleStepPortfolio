@@ -14,66 +14,47 @@
 
 package com.google.sps.servlets;
 
+
+import com.google.appengine.api.datastore.*;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.Query.*;
 import java.io.*; 
 import java.util.*; 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    ArrayList<String> comments = new ArrayList(Arrays.asList(
-        "Love the site",
-        "Black lives matter",
-        "Great resume",
-				"Final comment"
-    ));
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    response.setContentType("application/json;");
-		String[] commentsArray = getComments();
-		String jsonData = commentsToJsonStateless(commentsArray);
-    response.getWriter().println(jsonData);
-  }
+    //get query from the datastore
+    Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
+		List<Comment> comments = new ArrayList();
 
-  private String[] getComments(){
-      String[] commentsArray = comments.toArray(new String[0]);
-      return commentsArray;
-  }
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-	private String commentsToJsonStateless(String[] comments){
-		String jsonComments = "[";
-		for(int i = 0; i < comments.length; i++){
-			jsonComments+= "{\"text\": \"" + comments[i] + "\"}";
-			if(i!= comments.length - 1){
-				jsonComments+= ",";
-			}
-
-		}
-		jsonComments+= "]";
-		return jsonComments;
-	}
-
-  private String commentsToJson(){
-    String jsonComments = "[";
-    for(int i = 0; i < comments.size(); i++){
-        jsonComments+= "{\"text\": \"" + comments.get(i) + "\"}";
-        if(i!= comments.size() - 1){
-            jsonComments+= ",";
-        }
-    
+    //loop through the datastore and add all the comments to the list
+    for (Entity entity : results.asIterable()) {
+      String text = (String) entity.getProperty("text");
+			long time = (long) entity.getProperty("time");
+      comments.add(new Comment(text, time));
     }
-    jsonComments+= "]";
-    return jsonComments;
+
+    //write the json data to the server
+    response.setContentType("application/json;");
+    response.getWriter().println(getComments(comments));
+  }
+
+  private String getComments(List<Comment> comments){
+      Gson gson = new Gson();
+      return gson.toJson(comments);
   }
 
   @Override
@@ -81,18 +62,33 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     String text = request.getParameter("commentTxt");
     //check for empty text box
-    if(text == null || text.equals(""))
+    if(text == null || text.equals("")){
     	return;
+    }
 
-    //add the new comment to the list and generate new json
-    comments.add(text);
-	String[] commentsArray = getComments();
-	String jsonData = commentsToJsonStateless(commentsArray);
-
-    //write the comments back to the servlet
-    response.setContentType("application/json;");
-    response.getWriter().println(jsonData);
+    addComment(text, System.currentTimeMillis());
+    //reload the page to show new comment
     response.sendRedirect("/index.html");
 
+  }
+
+	//add a new comment to the page's comments
+  private void addComment(String commentText, long time){
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", commentText);
+    commentEntity.setProperty("time", time);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+  }
+
+	//class to store each individual comment on the page
+  private class Comment{
+      String text;
+      long time;
+
+      Comment(String text, long time){
+          this.text = text;
+          this.time = time;
+      }
   }
 }
