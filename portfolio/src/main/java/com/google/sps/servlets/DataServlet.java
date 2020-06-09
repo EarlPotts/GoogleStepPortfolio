@@ -32,15 +32,36 @@ public class DataServlet extends HttpServlet {
     ArrayList<String> comments = new ArrayList(Arrays.asList(
         "Love the site",
         "Black lives matter",
-        "Great resume"
+        "Great resume",
+				"Final comment"
     ));
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     response.setContentType("application/json;");
-    response.getWriter().println(commentsToJson());
+		String[] commentsArray = getComments();
+		String jsonData = commentsToJsonStateless(commentsArray);
+    response.getWriter().println(jsonData);
   }
+
+  private String[] getComments(){
+      String[] commentsArray = comments.toArray(new String[0]);
+      return commentsArray;
+  }
+
+	private String commentsToJsonStateless(String[] comments){
+		String jsonComments = "[";
+		for(int i = 0; i < comments.length; i++){
+			jsonComments+= "{\"text\": \"" + comments[i] + "\"}";
+			if(i!= comments.length - 1){
+				jsonComments+= ",";
+			}
+
+		}
+		jsonComments+= "]";
+		return jsonComments;
+	}
 
   private String commentsToJson(){
     String jsonComments = "[";
@@ -62,12 +83,15 @@ public class DataServlet extends HttpServlet {
     //check for empty text box
     if(text == null || text.equals(""))
     	return;
-    //create an etity for the comment
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("text", text);
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+    //add the new comment to the list and generate new json
+    comments.add(text);
+	String[] commentsArray = getComments();
+	String jsonData = commentsToJsonStateless(commentsArray);
+
+    //write the comments back to the servlet
+    response.setContentType("application/json;");
+    response.getWriter().println(jsonData);
     response.sendRedirect("/index.html");
 
   }
