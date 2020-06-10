@@ -33,6 +33,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
+
+    //write the json data to the server
+    response.setContentType("application/json;");
+    response.getWriter().println(getComments());
+  }
+
+  private String commentsToJson(List<Comment> comments){
+      Gson gson = new Gson();
+      return gson.toJson(comments);
+  }
+
+  private String getComments(){
     //get query from the datastore
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
 		List<Comment> comments = new ArrayList();
@@ -47,14 +60,7 @@ public class DataServlet extends HttpServlet {
       comments.add(new Comment(text, time));
     }
 
-    //write the json data to the server
-    response.setContentType("application/json;");
-    response.getWriter().println(getComments(comments));
-  }
-
-  private String getComments(List<Comment> comments){
-      Gson gson = new Gson();
-      return gson.toJson(comments);
+		return commentsToJson(comments);
   }
 
   @Override
