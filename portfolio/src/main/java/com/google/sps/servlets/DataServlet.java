@@ -37,8 +37,9 @@ public class DataServlet extends HttpServlet {
 
 
     //write the json data to the server
+    List<String> comments = getComments();
     response.setContentType("application/json;");
-    response.getWriter().println(getComments());
+    response.getWriter().println(commentsToJson(comments));
   }
 
   private String commentsToJson(List<Comment> comments){
@@ -46,7 +47,7 @@ public class DataServlet extends HttpServlet {
       return gson.toJson(comments);
   }
 
-  private String getComments(){
+  private List<String> getComments(){
     //get query from the datastore
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
 		List<Comment> comments = new ArrayList();
@@ -62,19 +63,42 @@ public class DataServlet extends HttpServlet {
       comments.add(new Comment(text, time));
     }
 
-		return commentsToJson(comments);
+		return comments;
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    String text = request.getParameter("commentTxt");
-    //check for empty text box
-    if(text == null || text.equals("")){
-    	return;
-    }
+    //check if we need to translate only or are we adding a comment
+    boolean isTranslate = request.getParameter("isTranslate");
+    if(isTranslate == true){
+      //get the lang code from the parameters
+      String langCode =  request.getParameter("languageCode");
+      Translate translate = TranslateOptions.getDefaultInstance().getService();
+      //loop through the list of comments and translate them to new List
+      List<String> translatedComments = new ArrayList<String>();
+      List<String> comments = getComments();
+      for(String comment: comments){
+        //translate the comment
+        Translation translation = translate.translate(
+          comment,
+          Translate.TranslateOption.targetLanguage(languageCode)
+        );
+        String translatedComment = translation.getTranslatedText();
+        translatedComments.add(comment);
+      }
+      //write the new translate
+      response.setContentType("application/json;");
+      response.getWriter().println(commentsToJson(comments));
+    } else {
+      // Get the input from the form.
+      String text = request.getParameter("commentTxt");
+      //check for empty text box
+      if(text == null || text.equals("")){
+      	return;
+      }
 
-    addComment(text, System.currentTimeMillis());
+      addComment(text, System.currentTimeMillis());
+    }
     //reload the page to show new comment
     response.sendRedirect("/index.html");
 
