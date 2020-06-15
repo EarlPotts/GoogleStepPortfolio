@@ -75,14 +75,7 @@ function switchSection (sectionIndex) {
 
 async function fetchServlet(){
     const commentsList = document.getElementById('commentsList');
-    const languageCode = document.getElementById('language').value;
-
-    const params = new URLSearchParams();
-    params.append('lang', languageCode);
-    await fetch('/data', {
-      method: 'GET',
-      body:params
-    })
+    await fetch('/data')
     .then(response => response.json())
     .then((comment) => {
         //loop through the comments on the server
@@ -95,4 +88,24 @@ async function fetchServlet(){
     	    console.log("Comment: " + comment.text);
         });
     });
+}
+
+async function requestTranslation() {
+        const text = document.getElementById('text').value;
+        const languageCode = document.getElementById('language').value;
+
+        const resultContainer = document.getElementById('result');
+        resultContainer.innerText = 'Loading...';
+
+        const params = new URLSearchParams();
+        params.append('text', text);
+        params.append('languageCode', languageCode);
+
+        fetch('/translate', {
+          method: 'POST',
+          body: params
+        }).then(response => response.text())
+        .then((translatedMessage) => {
+          resultContainer.innerText = translatedMessage;
+        });
 }

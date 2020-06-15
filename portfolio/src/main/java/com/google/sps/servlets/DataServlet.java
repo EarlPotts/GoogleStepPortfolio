@@ -38,7 +38,7 @@ public class DataServlet extends HttpServlet {
 
     //write the json data to the server
     response.setContentType("application/json;");
-    response.getWriter().println(getComments((String) request.getParameter("languageCode")));
+    response.getWriter().println(getComments());
   }
 
   private String commentsToJson(List<Comment> comments){
@@ -46,22 +46,20 @@ public class DataServlet extends HttpServlet {
       return gson.toJson(comments);
   }
 
-  private String getComments(String langCode){
+  private String getComments(){
     //get query from the datastore
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
 		List<Comment> comments = new ArrayList();
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    Translate translate = TranslateOptions.getDefaultInstance().getService();
 
 
     //loop through the datastore and add all the comments to the list
     for (Entity entity : results.asIterable()) {
       String text = (String) entity.getProperty("text");
 			long time = (long) entity.getProperty("time");
-      Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(langCode));
-      comments.add(new Comment(translation.getTranslatedText(), time));
+      comments.add(new Comment(text, time));
     }
 
 		return commentsToJson(comments);
