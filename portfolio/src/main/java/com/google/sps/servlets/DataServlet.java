@@ -23,8 +23,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.Query.*;
-import java.io.*; 
-import java.util.*; 
+import java.io.*;
+import java.util.*;
+import com.google.cloud.translate.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -33,11 +34,11 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+
 
     //write the json data to the server
     response.setContentType("application/json;");
-    response.getWriter().println(getComments());
+    response.getWriter().println(getComments((String) request.getParameter("languageCode")));
   }
 
   private String commentsToJson(List<Comment> comments){
@@ -45,19 +46,22 @@ public class DataServlet extends HttpServlet {
       return gson.toJson(comments);
   }
 
-  private String getComments(){
+  private String getComments(String langCode){
     //get query from the datastore
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
 		List<Comment> comments = new ArrayList();
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    Translate translate = TranslateOptions.getDefaultInstance().getService();
+
 
     //loop through the datastore and add all the comments to the list
     for (Entity entity : results.asIterable()) {
       String text = (String) entity.getProperty("text");
 			long time = (long) entity.getProperty("time");
-      comments.add(new Comment(text, time));
+      Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(langCode));
+      comments.add(new Comment(translation.getTranslatedText(), time));
     }
 
 		return commentsToJson(comments);

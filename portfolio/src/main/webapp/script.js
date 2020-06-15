@@ -75,7 +75,14 @@ function switchSection (sectionIndex) {
 
 async function fetchServlet(){
     const commentsList = document.getElementById('commentsList');
-    await fetch('/data')
+    const languageCode = document.getElementById('language').value;
+
+    const params = new URLSearchParams();
+    params.append('lang', languageCode);
+    await fetch('/data', {
+      method: 'GET',
+      body:params
+    })
     .then(response => response.json())
     .then((comment) => {
         //loop through the comments on the server
