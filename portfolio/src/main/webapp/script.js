@@ -14,6 +14,7 @@
 
 var sections = ['aboutMe', 'education', 'experience'];
 var currIndex = 0;
+var translated = false;
 function animateTitleText() {
   //store the element containing my name
   var animBox = document.getElementById('nameTitle');
@@ -91,14 +92,15 @@ async function fetchServlet(){
 }
 
 async function requestTranslation() {
+    console.log("In translation function");
   const languageCode = document.getElementById('language').value;
 
   const params = new URLSearchParams();
-  params.append('isTranslate', true);
+  params.append('isTranslate', 'true');
   params.append('languageCode', languageCode);
 
   fetch('/data', {
     method: 'POST',
     body: params
-  };
+  });
 }

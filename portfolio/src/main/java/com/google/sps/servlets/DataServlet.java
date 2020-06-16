@@ -26,10 +26,15 @@ import com.google.appengine.api.datastore.Query.*;
 import java.io.*;
 import java.util.*;
 import com.google.cloud.translate.*;
+import java.util.logging.Logger;
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private static final Logger log = Logger.getLogger(DataServlet.class.getName());
+	//global boolean to check for if translating after page refresh
+	boolean translating = false;
 
 
   @Override
@@ -37,9 +42,14 @@ public class DataServlet extends HttpServlet {
 
 
     //write the json data to the server
-    List<String> comments = getComments();
-    response.setContentType("application/json;");
-    response.getWriter().println(commentsToJson(comments));
+		log.info("Translating: " + translating);
+		if(!translating){
+			List<Comment> comments = getComments();
+			response.setContentType("application/json;");
+			response.getWriter().println(commentsToJson(comments));
+		} else {
+			translating = false;
+		}
   }
 
   private String commentsToJson(List<Comment> comments){
@@ -47,7 +57,7 @@ public class DataServlet extends HttpServlet {
       return gson.toJson(comments);
   }
 
-  private List<String> getComments(){
+  private List<Comment> getComments(){
     //get query from the datastore
     Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
 		List<Comment> comments = new ArrayList();
@@ -69,26 +79,19 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     //check if we need to translate only or are we adding a comment
-    boolean isTranslate = request.getParameter("isTranslate");
-    if(isTranslate == true){
+    String isTranslate = request.getParameter("isTranslate");
+    log.info("in post Is translate?: " + isTranslate);
+    if(isTranslate != null){
+			translating = true;
+    	System.out.println("in translation");
       //get the lang code from the parameters
       String langCode =  request.getParameter("languageCode");
-      Translate translate = TranslateOptions.getDefaultInstance().getService();
-      //loop through the list of comments and translate them to new List
-      List<String> translatedComments = new ArrayList<String>();
-      List<String> comments = getComments();
-      for(String comment: comments){
-        //translate the comment
-        Translation translation = translate.translate(
-          comment,
-          Translate.TranslateOption.targetLanguage(languageCode)
-        );
-        String translatedComment = translation.getTranslatedText();
-        translatedComments.add(comment);
-      }
-      //write the new translate
+      List<Comment> translatedComments = translateComments(langCode);
+
       response.setContentType("application/json;");
-      response.getWriter().println(commentsToJson(comments));
+      String jsonData = commentsToJson(translatedComments);
+    	log.info(jsonData);
+      response.getWriter().println(jsonData);
     } else {
       // Get the input from the form.
       String text = request.getParameter("commentTxt");
@@ -104,6 +107,24 @@ public class DataServlet extends HttpServlet {
 
   }
 
+	private List<Comment> translateComments(String languageCode){
+		Translate translate = TranslateOptions.getDefaultInstance().getService();
+		//loop through the list of comments and translate them to new List
+		List<Comment> translatedComments = new ArrayList<Comment>();
+		List<Comment> comments = getComments();
+		for(Comment comment: comments){
+			//translate the comment
+			Translation translation = translate.translate(
+				comment.text,
+				Translate.TranslateOption.targetLanguage(languageCode)
+			);
+			String translatedComment = translation.getTranslatedText();
+			translatedComments.add(new Comment(translatedComment, comment.time));
+    	System.out.println("Original: " + comment.text + " Translated: " + translatedComment);
+		}
+		return translatedComments;
+	}
+
 	//add a new comment to the page's comments
   private void addComment(String commentText, long time){
     Entity commentEntity = new Entity("Comment");
@@ -115,8 +136,8 @@ public class DataServlet extends HttpServlet {
 
 	//class to store each individual comment on the page
   private class Comment{
-      String text;
-      long time;
+      public String text;
+      public long time;
 
       Comment(String text, long time){
           this.text = text;
