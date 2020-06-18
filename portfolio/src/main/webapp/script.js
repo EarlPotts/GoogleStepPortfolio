@@ -82,8 +82,31 @@ async function fetchServlet(){
         //loop through the comments on the server
         comment.forEach(comment => {
             //create aq new list item with the comment txt and add it to the list
-            let newListItem = document.createElement("li");
-            newListItem.appendChild(document.createTextNode(comment.text));
+            const newListItem = document.createElement("li");
+            const langPicker = document.getElementById("language");
+            const lang = langPicker.value;
+            let translatedText;
+            //set the correct translated text based on which language is picked
+            switch(lang) {
+                case "en":
+                    translatedText = "";
+                    break;
+                case "zh":
+                    translatedText = "  (" + comment.zh + ")";
+                    break;
+                case "es":
+                    translatedText = "  (" + comment.es + ")";
+                    break;
+                case "hi":
+                    translatedText = "  (" + comment.hi + ")";
+                    break;
+                case "ar":
+                    translatedText = "  (" + comment.ar + ")";
+                    break;
+
+            }
+
+            newListItem.appendChild(document.createTextNode(comment.text + translatedText));
             commentsList.appendChild(newListItem);
             commentsList.appendChild(document.createElement("hr"));
     	    console.log("Comment: " + comment.text);

@@ -33,8 +33,6 @@ import java.util.logging.Logger;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final Logger log = Logger.getLogger(DataServlet.class.getName());
-	//global boolean to check for if translating after page refresh
-	boolean translating = false;
 
 
   @Override
@@ -42,14 +40,9 @@ public class DataServlet extends HttpServlet {
 
 
     //write the json data to the server
-		log.info("Translating: " + translating);
-		if(!translating){
 			List<Comment> comments = getComments();
 			response.setContentType("application/json;");
 			response.getWriter().println(commentsToJson(comments));
-		} else {
-			translating = false;
-		}
   }
 
   private String commentsToJson(List<Comment> comments){
@@ -134,8 +127,29 @@ public class DataServlet extends HttpServlet {
     datastore.put(commentEntity);
   }
 
+//add a comment with a translation
+  private void addComment(Comment original, String translatedText, String lang){
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", original.text);
+    commentEntity.setProperty("time", original.time);
+    commentEntity.setProperty(lang, translatedText);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+  }
+
 	//class to store each individual comment on the page
   private class Comment{
+      public String text;
+      public long time;
+
+      Comment(String text, long time){
+          this.text = text;
+          this.time = time;
+      }
+  }
+
+  //class to store each individual comment on the page
+  private class TranslatedText{
       public String text;
       public long time;
 
